@@ -2,6 +2,7 @@ import {
   SEARCH_REQUEST,
   SEARCH_FAILURE,
   GET_SEARCH_SUCCESS,
+  GET_PRODUCT_DETAILS,
 } from "./actionTypes";
 
 const initialState = {
@@ -10,10 +11,11 @@ const initialState = {
   images: [],
   nextPage: "",
   totalCount: 0,
+  individual: [],
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
-  console.log("payload", payload);
+ 
   switch (type) {
     case SEARCH_REQUEST: {
       return {
@@ -30,6 +32,14 @@ export const reducer = (state = initialState, { type, payload }) => {
         totalCount: payload.totalCount,
       };
     }
+    case GET_PRODUCT_DETAILS: {
+      return {
+        ...state,
+        isLoading: false,
+        individual: payload.data,
+      };
+    }
+
     case SEARCH_FAILURE: {
       return {
         ...state,

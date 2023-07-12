@@ -6,11 +6,20 @@
   align-content: center;
   gap: 15px;
   margin: 15px;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
-  /* border: 1px solid red; */
+  padding-bottom: 20px;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 }
 .imageContainer img {
   width: 100%;
+}
+
+.bigContainer {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.containerButton {
+  width: 200px;
 }
 
 .gridChange {
@@ -22,7 +31,16 @@
   justify-content: space-between;
   padding: 20px;
 }
+.gridButton {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid red; */
+  height: 40px !important;
+}
 
+.selected {
+  background-color: red;
+}
 button {
   padding: 0.5rem 1rem;
   background-color: #4caf50;
@@ -32,6 +50,8 @@ button {
   cursor: pointer;
   font-size: 1rem;
   margin-left: 0.5rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
 select {
@@ -44,4 +64,32 @@ select {
 
 select > option {
   color: rgb(158, 158, 158);
+}
+
+@media (max-width: 767px) {
+  .Container {
+    width: 50px;
+  }
+  button {
+    padding: none !important;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.5rem;
+    margin-left: 0.5rem;
+  }
+  .containerButton {
+    width: 5%;
+  }
+
+  .bigContainer {
+    display: flex !important;
+    flex-direction: column;
+  }
+  .gridButton {
+    display: flex !important;
+    flex-direction: column;
+  }
 }

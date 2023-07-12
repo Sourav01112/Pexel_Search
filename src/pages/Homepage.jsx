@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { SearchForm } from "../components/SearchForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchResult } from "../redux/imageReducer/action";
 import { SetLoading } from "../redux/loaderSlice";
 import { LoadingSpinner } from "../components/LoadingSpinner";
-import "../style/Homepage.css";
-import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { Slide, ToastContainer, toast } from "react-toastify";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import "react-toastify/dist/ReactToastify.css";
+import "../style/Homepage.css";
+
 
 export const Homepage = () => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const [page, setPage] = useState("");
-  const [gridSize, setGridSize] = useState(2);
+  const [gridSize, setGridSize] = useState(4);
   const [selectedOption, setSelectedOption] = useState("portrait");
   const { isLoading, images, totalCount, next } = useSelector(
     (store) => store.imageReducer
@@ -72,7 +74,7 @@ export const Homepage = () => {
   }, [gridSize, images]);
 
   return (
-    <div>
+    <div className="bigContainer">
       <ToastContainer transition={Slide} />
       <h1 style={{ margin: "auto" }}>Pexel API</h1>
       <SearchForm
@@ -82,17 +84,36 @@ export const Homepage = () => {
         setPage={setPage}
       />
       <div className="gridChange">
-
         <select onChange={handleSelectChange} value={selectedOption}>
           <option value="portrait">Portrait</option>
           <option value="landscape">Landscape</option>
           <option value="original">Small</option>
         </select>
 
-        <p>Current Grid: {gridSize}</p>
-        
-        <div>
+        {/* <p>Current Grid: {gridSize}</p> */}
+
+        <div className="gridButton">
+          <p
+            style={{
+              fontFamily: "sans-serif",
+              display: "flex",
+
+              alignItems: "center",
+            }}
+          >
+            Select View
+          </p>
           <button
+            className={gridSize === 2 ? "selected" : ""}
+            onClick={() => {
+              loaderFunc();
+              handleChangeGridSize(2);
+            }}
+          >
+            2
+          </button>
+          <button
+            className={gridSize === 3 ? "selected" : ""}
             onClick={() => {
               loaderFunc();
               handleChangeGridSize(3);
@@ -101,6 +122,7 @@ export const Homepage = () => {
             3
           </button>
           <button
+            className={gridSize === 4 ? "selected" : ""}
             onClick={() => {
               loaderFunc();
               handleChangeGridSize(4);
@@ -109,6 +131,7 @@ export const Homepage = () => {
             4
           </button>
           <button
+            className={gridSize === 5 ? "selected" : ""}
             onClick={() => {
               loaderFunc();
               handleChangeGridSize(5);
@@ -129,9 +152,9 @@ export const Homepage = () => {
           <LoadingSpinner />
         ) : images && images.length > 0 ? (
           images.map((ele) => (
-            <div className="Container">
+            <div key={ele.id} className="Container">
               <div className="imageContainer">
-                <img
+                <LazyLoadImage
                   src={
                     selectedOption === "landscape"
                       ? ele.src.landscape
@@ -140,9 +163,12 @@ export const Homepage = () => {
                       : ele.src.small
                   }
                   alt="Image"
+                  effect="blur"
                 />
               </div>
-              <button style={{ width: "200px" }}>Click to know more</button>
+              <Link to={`image/description/${ele.id}`}>
+                <button className="containerButton">More</button>
+              </Link>
             </div>
           ))
         ) : (
