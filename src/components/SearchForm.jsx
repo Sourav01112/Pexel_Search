@@ -1,49 +1,65 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { getSearchResult } from "../redux/imageReducer/action";
-import { Flip, Slide, ToastContainer, Zoom, toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../style/SearchForm.css";
 
-export const SearchForm = ({ query, setQuery, page, setPage }) => {
+export const SearchForm = ({ query, setQuery, paramsObj }) => {
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // form Submission
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!query) {
       toast.error("Please enter a search query");
       return;
     }
     setQuery("");
 
-    dispatch(getSearchResult(query, page, setPage));
+    dispatch(getSearchResult(query));
   };
 
+  // Search on Enter
   const onKeyDownHandler = (e) => {
     if (e.key === "Enter") {
       handleSubmit(e);
     }
   };
 
+  //Applying Debouncing on search with useSearchParam
   useEffect(() => {
-    dispatch(getSearchResult(query));
-  }, []);
+    const delayDebounceFn = setTimeout(() => {
+      const paramsObj = {
+        params: {
+          q: query && query,
+        },
+      };
+      setSearchParams(paramsObj.params);
+
+      dispatch(getSearchResult(query));
+    }, 100);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [query]);
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <div>
+      <Form onSubmit={handleSubmit}>
       <Input
         className="inputStyle"
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={onKeyDownHandler}
-        placeholder="Search images..."
-      />{" "}
-      <Button type="submit">Search</Button>
-      {/* <Button type="submit">Search</Button> */}
-    </Form>
+        placeholder="Perform image searches using keywords or phrases, including alphabets."
+      />
+      </Form>
+    </div>
   );
 };
 

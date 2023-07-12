@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getSingleProductDetails } from "../redux/imageReducer/action";
 import { SetLoading } from "../redux/loaderSlice";
 import { LoadingSpinner } from "../components/LoadingSpinner";
@@ -13,11 +13,7 @@ export const ImageDescription = () => {
   const dispatch = useDispatch();
   const { individual, isLoading } = useSelector((store) => store.imageReducer);
 
-
-  //   console.log(id);
-//   console.log("@@store", individual);
-
-
+  // to manage SetLoading and fetch
   useEffect(() => {
     dispatch(SetLoading(true));
     setTimeout(() => {
@@ -27,46 +23,83 @@ export const ImageDescription = () => {
   }, []);
 
   return (
-    <Container>
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <>
-          <h1>Welcome to Individual Detail</h1>
+    <div>
+      <Link to="/">
+        <button>Go Back</button>
+      </Link>
+      <Container>
+        <span>
+          <h1>Welcome to Image Detail</h1>
 
           <LazyLoadImage
             src={individual?.src?.original}
             width={700}
             height={500}
             effect="blur"
+            placeholder={
+              <span>
+                <LoadingSpinner />
+              </span>
+            }
           />
 
+          <h3>Details</h3>
           <Details>
-            <p>Photographer Name: {individual?.photographer}</p>
-            <p>Photographer ID: {individual?.photographer_id}</p>
-            <p>Original Height: {individual?.height}</p>
-            <p>Original Width: {individual?.width}</p>
-            <p>Photographer URL: {individual?.photographer_url}</p>
+            <p>
+              <span>Photographer Name </span> {individual?.photographer}
+            </p>
+            <p>
+              <span>Photographer ID</span> {individual?.photographer_id}
+            </p>
+            <p>
+              <span>Original Height</span> {individual?.height}
+            </p>
+            <p>
+              <span>Original Width</span> {individual?.width}
+            </p>
+            <p>
+              <span>Photographer URL</span> {individual?.photographer_url}
+            </p>
           </Details>
-        </>
-      )}
-    </Container>
+        </span>
+      </Container>
+    </div>
   );
 };
 
 const Container = styled.div`
   display: flex;
+  padding-bottom: 50px;
   flex-direction: column;
   align-items: center;
-`;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  margin-top: 15px;
 
-const Image = styled.img`
-  width: 100%;
-  max-width: 500px;
-  margin-top: 20px;
+  h3 {
+    color: rgb(66, 66, 66);
+  }
 `;
 
 const Details = styled.div`
   margin-top: 20px;
-  text-align: center;
+  text-align: justify;
+  width: 100%;
+  padding-left: 48%;
+  /* border: 2px solid red; */
+
+  p {
+    display: flex;
+    justify-content: right;
+    flex-direction: column;
+    color: black;
+    font-size: 17px;
+    margin-bottom: 10px;
+  }
+  span {
+    font-weight: 500;
+    color: rgb(117, 117, 117);
+    font-family: sans-serif;
+    text-transform: uppercase;
+  }
 `;

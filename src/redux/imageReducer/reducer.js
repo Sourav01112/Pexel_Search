@@ -9,13 +9,10 @@ const initialState = {
   isLoading: false,
   isError: false,
   images: [],
-  nextPage: "",
-  totalCount: 0,
   individual: [],
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
- 
   switch (type) {
     case SEARCH_REQUEST: {
       return {
@@ -28,8 +25,6 @@ export const reducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         images: payload.data,
-        nextPage: payload.next,
-        totalCount: payload.totalCount,
       };
     }
     case GET_PRODUCT_DETAILS: {

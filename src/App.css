@@ -1,6 +1,18 @@
 .App {
-  /* padding: 0; */
-  /* margin: auto; */
   padding: 20px !important;
-  
 }
+
+.topBtn {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 1.8rem !important;
+}
+
+.insidetopBtn {
+  font-size: 40px !important;
+  border-radius: 100% !important;
+  background-color: white !important;
+  border: none !important;
+}
+
+

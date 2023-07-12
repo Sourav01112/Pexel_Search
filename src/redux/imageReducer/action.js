@@ -1,24 +1,28 @@
+import axios from "axios";
 import {
   SEARCH_REQUEST,
   SEARCH_FAILURE,
   GET_PRODUCT_DETAILS,
   GET_SEARCH_SUCCESS,
 } from "./actionTypes";
-import axios from "axios";
 
-
-export const getSearchResult = (query, page, paramObject) => (dispatch) => {
+export const getSearchResult = (query) => (dispatch) => {
   dispatch({ type: SEARCH_REQUEST });
 
   axios
     .get(
-      `https://api.pexels.com/v1/search?query=${query}&per_page=10`,
+      `https://api.pexels.com/v1/search`,
       {
         headers: {
           Authorization: import.meta.env.VITE_API_Key,
         },
-      },
-      paramObject
+        params: {
+          query: query,
+          per_page: 80,
+        },
+      }
+
+      // query
     )
     .then((res) => {
       console.log("res", res);
@@ -26,8 +30,6 @@ export const getSearchResult = (query, page, paramObject) => (dispatch) => {
         type: GET_SEARCH_SUCCESS,
         payload: {
           data: res.data.photos,
-          next: res.next,
-          totalCount: res.data.total_results,
         },
       });
     })
@@ -36,7 +38,7 @@ export const getSearchResult = (query, page, paramObject) => (dispatch) => {
     });
 };
 
-export const getSingleProductDetails = (id) => (dispatch) => {
+export const getSingleProductDetails = (id) => async (dispatch) => {
   dispatch({ type: SEARCH_REQUEST });
 
   return axios
@@ -46,7 +48,7 @@ export const getSingleProductDetails = (id) => (dispatch) => {
       },
     })
     .then((res) => {
-      console.log("Detail Response", res);
+      // console.log("Detail Response", res);
       dispatch({
         type: GET_PRODUCT_DETAILS,
         payload: {

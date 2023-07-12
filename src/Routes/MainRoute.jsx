@@ -6,10 +6,13 @@ import { PageNotFound } from "../pages/PageNotFound";
 
 export const MainRoute = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Homepage />} />
-      <Route path="/image/description/:id" element={<ImageDescription />} />
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+    <div>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/image/description/:id" element={<ImageDescription />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+     
+    </div>
   );
 };
