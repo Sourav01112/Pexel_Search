@@ -30,7 +30,7 @@
 
 ![ScreenShot](./src/assets/3.png)
 
-<p>4. Portrait Orientation with Grid Size : 3</p>
+<p>4. Search Result on typing "T" with Grid Size : 3 in Portrait orientation</p>
 
 ![ScreenShot](./src/assets/4.png)
 
