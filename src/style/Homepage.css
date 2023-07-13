@@ -32,7 +32,7 @@
 select {
   /* styling */
   background-color: white;
-  border: thin solid #008080 !important;
+  border: 2px solid #008080 !important;
   border-radius: 4px;
   display: inline-block;
   font: inherit;
@@ -58,6 +58,8 @@ select.round {
     calc(100% - 15px) calc(1em + 2px), calc(100% - 0.5em) 0.5em;
   background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
   background-repeat: no-repeat;
+  color: rgb(230, 81, 0);
+  font-weight: 600;
 }
 
 select.round:focus {
@@ -69,7 +71,6 @@ select.round:focus {
   background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
   background-repeat: no-repeat;
   border-color: green;
-  outline: 0;
 }
 
 .gridButton {
@@ -97,6 +98,10 @@ button {
 button:hover {
   background-color: rgb(230, 81, 0);
 }
+button.containerButton {
+  outline: none;
+  text-decoration: none;
+}
 
 select {
   padding: 0.5rem;
@@ -117,8 +122,6 @@ select:hover {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-
 
 @media (max-width: 767px) {
   .Container {

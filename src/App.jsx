@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MainRoute } from "./Routes/MainRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { LoadingSpinner } from "./components/LoadingSpinner";
@@ -9,6 +9,7 @@ import "./App.css";
 function App() {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((store) => store.loaderReducer);
+ 
 
   useEffect(() => {
     if (isLoading) {
@@ -22,6 +23,7 @@ function App() {
     }
   }, []);
 
+ 
   return (
     <div className="App">
       {isLoading && <LoadingSpinner />}
@@ -32,3 +34,4 @@ function App() {
 }
 
 export default App;
+

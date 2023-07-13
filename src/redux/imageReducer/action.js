@@ -7,6 +7,12 @@ import {
 } from "./actionTypes";
 
 export const getSearchResult = (query) => (dispatch) => {
+  // validation for empty query
+  if (!query) {
+    dispatch({ type: SEARCH_FAILURE });
+    return;
+  }
+
   dispatch({ type: SEARCH_REQUEST });
 
   axios

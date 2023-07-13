@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "../App.css";
 
 import { IoMdArrowDropupCircle } from "react-icons/io";
+
 export const TopButton = () => {
   const [isTop, setIsTop] = useState(false);
 
@@ -36,10 +37,12 @@ export const TopButton = () => {
       {isTop && (
         <IoMdArrowDropupCircle
           className="insidetopBtn"
-          color="#DD2C00"
+          color="white"
           onClick={scrollToTop}
         />
       )}
     </div>
   );
 };
+
+

@@ -13,14 +13,13 @@ import "../style/Homepage.css";
 export const Homepage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialSearch = searchParams.getAll("query");
-  const [query, setQuery] = useState(searchParams.get("q") || "");
-
+  const [query, setQuery] = useState(searchParams.get("q") || "nature");
+  const [flag, setFlag] = useState(true);
   const [gridSize, setGridSize] = useState(4);
   const [selectedOption, setSelectedOption] = useState("portrait");
   const { isLoading, images, totalCount, next } = useSelector(
     (store) => store.imageReducer
   );
- 
 
   // showing image type as per select option
   const handleSelectChange = (e) => {
@@ -29,6 +28,10 @@ export const Homepage = () => {
 
   // validation check if the button is selected with images length === 0
   useEffect(() => {
+    if (flag) {
+      setFlag(false);
+      return;
+    }
     if (
       (gridSize === 2 || gridSize === 3 || gridSize === 4 || gridSize === 5) &&
       images.length === 0
@@ -83,8 +86,8 @@ export const Homepage = () => {
           <LoadingSpinner />
         ) : images && images.length > 0 ? (
           images.map((ele) => (
-            <Link to={`image/description/${ele.id}`} key={ele.id}>
-              <div className="Container">
+            <div className="Container" key={ele.id}>
+              <Link to={`image/description/${ele.id}`}>
                 <div className="imageContainer">
                   <LazyLoadImage
                     src={
@@ -98,11 +101,11 @@ export const Homepage = () => {
                     effect="blur"
                   />
                 </div>
-                <Link to={`image/description/${ele.id}`}>
-                  <button className="containerButton">More</button>
-                </Link>
-              </div>
-            </Link>
+              </Link>
+              <Link to={`image/description/${ele.id}`}>
+                <button className="containerButton">More</button>
+              </Link>
+            </div>
           ))
         ) : (
           <p className="noImage">Sorry 😔, No Photos. Please Search!</p>

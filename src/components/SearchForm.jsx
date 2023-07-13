@@ -50,15 +50,18 @@ export const SearchForm = ({ query, setQuery, paramsObj }) => {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-      <Input
-        className="inputStyle"
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={onKeyDownHandler}
-        placeholder="Perform image searches using keywords or phrases, including alphabets."
-      />
+        <Input
+          className="inputStyle"
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={onKeyDownHandler}
+          placeholder="Perform image searches using keywords or phrases, including alphabets."
+        />
       </Form>
+      <P>
+        Perform image searches using keywords or phrases, including alphabets.
+      </P>
     </div>
   );
 };
@@ -78,7 +81,10 @@ const Input = styled.input`
   font-size: 1rem;
   outline: none;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: -20px;
+`;
+const P = styled.p`
+  color: rgb(189, 189, 189);
 `;
 
 const Button = styled.button`
